@@ -1,9 +1,7 @@
-//#include <Wire.h>
 #include <Arduino_LSM9DS1.h>
 
 void setup() {
   Serial.begin(115200);
-  //IMU.setGyroScale(245); // Configura la escala del giroscopio (opciones: 245, 500, 2000)
   while (!Serial) {
     ;  // wait for serial port to connect. Needed for native USB port only
   }
@@ -20,8 +18,8 @@ void loop() {
     IMU.readGyroscope(gx, gy, gz);  
     String gyroString = String(gx) + "," +
                         String(gy) + "," +
-                        String(gz);
-    Serial.println(gyroString);
+                        String(gz) + ",";
+    Serial.print(gyroString);
   }
   
   delay(10);
