@@ -1,6 +1,7 @@
 import serial
 import pandas as pd
 from pathlib import Path
+import time
 
 # Nombre del archivo y ruta donde se guardarán los resultados
 nombre_archivo = 'resultados'
@@ -13,12 +14,11 @@ resultados_df = pd.DataFrame(formato)
 
 lectura = [] # Lista donde se guarda el número leído
 escritura = [] # Lista donde se guardarán los 3 valores leídos
-caracter_decimal = False
-caracteres_restantes = 2
-
 puerto = serial.Serial('COM4')
+tiempo_de_inicio = time.time()
 
-while True:
+# Se leerán 15 segundos de datos
+while time.time() - tiempo_de_inicio <= 15.0:
 	caracter_leido = puerto.read()
 	caracter_leido = caracter_leido.decode('utf-8')
 	if caracter_leido != ',':
