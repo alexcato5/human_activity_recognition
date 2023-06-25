@@ -14,7 +14,7 @@ resultados_df = pd.DataFrame(formato)
 
 lectura = [] # Lista donde se guarda el número leído
 escritura = [] # Lista donde se guardarán los 3 valores leídos
-puerto = serial.Serial('COM4')
+puerto = serial.Serial('COM3')
 tiempo_de_inicio = time.time()
 
 # Se leerán 15 segundos de datos
