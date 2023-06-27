@@ -13,13 +13,21 @@ void setup() {
 
 
 void loop() {
+  // Definición de variables para valores de acelerómetro y giroscopio
+  float ax, ay, az;
   float gx, gy, gz;
-  if (IMU.gyroscopeAvailable()) {
+
+  // Se verifica que los sensores estén disponibles
+  if (IMU.gyroscopeAvailable()&&IMU.accelerationAvailable()) {
+    IMU.readAcceleration(ax, ay, az);
     IMU.readGyroscope(gx, gy, gz);  
-    String gyroString = String(gx) + "," +
-                        String(gy) + "," +
-                        String(gz) + ",";
-    Serial.print(gyroString);
+    String datosString = String(ax) + "," +
+                         String(ay) + "," +
+                         String(az) + "," +
+                         String(gx) + "," +
+                         String(gy) + "," +
+                         String(gz) + ",";
+    Serial.print(datosString);
   }
   
   delay(10);

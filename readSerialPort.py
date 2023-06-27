@@ -4,16 +4,16 @@ from pathlib import Path
 import time
 
 # Nombre del archivo y ruta donde se guardarán los resultados
-nombre_archivo = 'resultados'
+nombre_archivo = 'datos_movimiento'
 ruta_resultados = './' + nombre_archivo + '/'
 Path(ruta_resultados).mkdir(parents=True, exist_ok=True)
 
 # Definición del DataFrame para guardar los resultados
-formato = { 'GIR_X':[0.00], 'GIR_Y':[0.00], 'GIR_Z':[0.00] }
+formato = { 'ACC_X':[0.00], 'ACC_Y':[0.00], 'ACC_Z':[0.00], 'GIR_X':[0.00], 'GIR_Y':[0.00], 'GIR_Z':[0.00] }
 resultados_df = pd.DataFrame(formato)
 
 lectura = [] # Lista donde se guarda el número leído
-escritura = [] # Lista donde se guardarán los 3 valores leídos
+escritura = [] # Lista donde se guardarán los 6 valores leídos
 puerto = serial.Serial('COM3')
 tiempo_de_inicio = time.time()
 
@@ -27,7 +27,7 @@ while time.time() - tiempo_de_inicio <= 15.0:
 		escritura.append(float(''.join(lectura)))
 		lectura.clear()
 
-		if len(escritura) == 3:
+		if len(escritura) == 6:
 			resultados_df.loc[len(resultados_df.index)] = escritura
 			print(escritura)
 			escritura.clear()
