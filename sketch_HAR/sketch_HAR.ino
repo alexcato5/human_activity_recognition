@@ -25,7 +25,7 @@
 #include "model.h"
 
 const float accelerationThreshold = 2.5; // threshold of significant in G's
-const int numSamples = 119;
+const int numSamples = 1072;
 
 int samplesRead = numSamples;
 
@@ -49,9 +49,9 @@ byte tensorArena[tensorArenaSize] __attribute__((aligned(16)));
 
 // array to map gesture index to a name
 const char* GESTURES[] = {
-  "movimiento1",
-  "movimiento2",
-  "movimiento3"
+  "arriba_abajo",
+  "circulos",
+  "golpe"
 };
 
 #define NUM_GESTURES (sizeof(GESTURES) / sizeof(GESTURES[0]))
@@ -62,15 +62,15 @@ void setup() {
 
   // initialize the IMU
   if (!IMU.begin()) {
-    Serial.println("Failed to initialize IMU!");
+    Serial.println("Fallo al inicializar el IMU!");
     while (1);
   }
 
   // print out the samples rates of the IMUs
-  Serial.print("Accelerometer sample rate = ");
+  Serial.print("Tasa de muestreo del acelerómetro = ");
   Serial.print(IMU.accelerationSampleRate());
   Serial.println(" Hz");
-  Serial.print("Gyroscope sample rate = ");
+  Serial.print("Tasa de muestreo del giroscopio = ");
   Serial.print(IMU.gyroscopeSampleRate());
   Serial.println(" Hz");
 
@@ -79,7 +79,7 @@ void setup() {
   // get the TFL representation of the model byte array
   tflModel = tflite::GetModel(model);
   if (tflModel->version() != TFLITE_SCHEMA_VERSION) {
-    Serial.println("Model schema mismatch!");
+    Serial.println("Esquema de modelos no coincide");
     while (1);
   }
 
@@ -139,7 +139,7 @@ void loop() {
         // Run inferencing
         TfLiteStatus invokeStatus = tflInterpreter->Invoke();
         if (invokeStatus != kTfLiteOk) {
-          Serial.println("Invoke failed!");
+          Serial.println("Falló la invocación");
           while (1);
           return;
         }
