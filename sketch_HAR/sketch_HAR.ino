@@ -25,7 +25,7 @@
 #include "model.h"
 
 const float accelerationThreshold = 2.5; // threshold of significant in G's
-const int numSamples = 1072;
+const int numSamples = 450;
 
 int samplesRead = numSamples;
 
